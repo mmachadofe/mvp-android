@@ -4,6 +4,8 @@ import br.uol.ps.cards.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 class RetrofitConfiguration {
@@ -22,7 +24,9 @@ class RetrofitConfiguration {
             }
 
         return Retrofit.Builder().apply {
-            baseUrl("https://private-52207a-pagbankbootcamp.apiary-mock.com")
+            baseUrl("https://private-f3be7e-pagbankbootcamp.apiary-mock.com")
+            addConverterFactory(GsonConverterFactory.create())
+            addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             client(httpClient.build())
         }.build()
     }
