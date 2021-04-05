@@ -9,7 +9,8 @@ interface CardsContract {
     }
 
     interface Presenter {
-       fun getCards()
-       fun doOpenCardDetail(card: Card)
+        fun getCards()
+        fun doOpenCardDetail(card: Card)
+        fun dispose()
     }
 }

@@ -1,15 +1,18 @@
 package br.uol.ps.cards.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import br.uol.ps.cards.R
 import br.uol.ps.cards.contracts.CardsContract
 import br.uol.ps.cards.models.Card
 import br.uol.ps.cards.presenter.CardsPresenter
+import br.uol.ps.cards.repository.CardRepository
+import br.uol.ps.core.networkMiddleware.RetrofitConfiguration
 
 class CardsActivity : AppCompatActivity(), CardsContract.View {
 
-    val presenter = CardsPresenter(this)
+    //todo aula com o julio sobre injeção de dependncia
+    val presenter = CardsPresenter(this, CardRepository(RetrofitConfiguration().getInstance()))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,5 +26,10 @@ class CardsActivity : AppCompatActivity(), CardsContract.View {
 
     override fun openCardDetail() {
         //TODO("Not yet implemented")
+    }
+
+    override fun onDestroy() {
+        presenter.dispose()
+        super.onDestroy()
     }
 }
