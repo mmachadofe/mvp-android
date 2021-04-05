@@ -1,5 +1,5 @@
 package br.uol.ps.cards.models
 
-class CardsResponseDto {
-
-}
+data class CardsResponseDto(
+    val cards: List<Card>
+)

@@ -12,7 +12,7 @@ import br.uol.ps.core.networkMiddleware.RetrofitConfiguration
 class CardsActivity : AppCompatActivity(), CardsContract.View {
 
     //todo aula com o julio sobre injeção de dependncia
-    val presenter = CardsPresenter(this, CardRepository(RetrofitConfiguration().getInstance()))
+    private val presenter = CardsPresenter(this, CardRepository(RetrofitConfiguration().getInstance()))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,10 +22,30 @@ class CardsActivity : AppCompatActivity(), CardsContract.View {
     }
 
     override fun showListCards(cards: List<Card>) {
+        //Paulo Afonso
     }
 
     override fun openCardDetail() {
         //TODO("Not yet implemented")
+        //Paulo Afonso
+    }
+
+    override fun showError() {
+        //TODO("Not yet implemented"
+        //Mostar uma Dialog  com a mensagem
+        // TITLE: Falha na requisição
+        // MESSAG: Não foi possível completar sua requisição no momento, tenta novamente mais tarde.
+        // BOTÃO: Botão OK
+    }
+
+    override fun showLoading() {
+        //TODO("Not yet implemented")
+        //Utilizar ProgressDialog - iniciar
+    }
+
+    override fun stopLoading() {
+        //TODO("Not yet implemented")
+        //Utilizar ProgressDialog - parar
     }
 
     override fun onDestroy() {

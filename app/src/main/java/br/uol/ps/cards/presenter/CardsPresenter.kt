@@ -15,6 +15,7 @@ class CardsPresenter(
     private val disposable = CompositeDisposable()
 
     override fun getCards() {
+        view?.showLoading()
         cardRepository
             .getCards()
             .doOnSubscribe { disposable }
@@ -22,13 +23,12 @@ class CardsPresenter(
             .observeOn(AndroidSchedulers.mainThread(), true)
             .doOnNext {
                 //sucesso
+                view?.showListCards(it.cards)
             }.doOnError {
-                //erro
+                view?.showError()
             }.doOnComplete {
-                //completou request
+                view?.stopLoading()
             }
-
-        view?.showListCards(arrayListOf())
     }
 
     override fun doOpenCardDetail(card: Card) {

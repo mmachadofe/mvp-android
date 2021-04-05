@@ -6,6 +6,9 @@ interface CardsContract {
     interface View {
         fun showListCards(cards: List<Card>)
         fun openCardDetail()
+        fun showError()
+        fun showLoading()
+        fun stopLoading()
     }
 
     interface Presenter {
