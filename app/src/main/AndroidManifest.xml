@@ -9,14 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Cards">
-        <activity android:name="br.uol.ps.example.checkBirthDate.view.CheckBirthDateActivity">
+        <activity android:name="br.uol.ps.example.sumNumber.view.NumberActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="br.uol.ps.example.sumNumber.view.NumberActivity" />
+<!--        <activity android:name="br.uol.ps.example.sumNumber.view.NumberActivity" />-->
         <activity android:name=".view.CardsActivity" />
         <activity android:name=".MainActivity" />
 <!--        <activity android:name=".MainActivity">-->

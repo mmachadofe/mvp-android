@@ -13,15 +13,18 @@ import br.uol.ps.example.checkBirthDate.presenter.CheckBirthDatePresenter
 class CheckBirthDateActivity : AppCompatActivity(), CheckBirthDateContract.View {
     private lateinit var presenter: CheckBirthDateContract.Presenter
 
+    var birthDate: EditText? = null
+    var btnVerify: Button? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_check_birth_date)
         presenter = CheckBirthDatePresenter(this)
-        var birthDate: EditText = findViewById(R.id.birthDate)
-        var btnVerify: Button = findViewById(R.id.btnVerify)
+        birthDate = findViewById(R.id.birthDate)
+        btnVerify = findViewById(R.id.btnVerify)
 
-        btnVerify.setOnClickListener {
-            presenter.verifyBirthDate(birthDate.text.toString())
+        btnVerify?.setOnClickListener {
+            presenter.verifyBirthDate(birthDate?.text.toString())
         }
     }
 

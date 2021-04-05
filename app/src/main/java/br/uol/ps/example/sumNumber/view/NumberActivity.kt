@@ -1,6 +1,7 @@
 package br.uol.ps.example.sumNumber.view
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -9,13 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import br.uol.ps.cards.R
 import br.uol.ps.example.sumNumber.contracts.NumberContract
 import br.uol.ps.example.sumNumber.presenter.NumberPresenter
+import kotlinx.android.synthetic.main.activity_number.*
 
 class NumberActivity : AppCompatActivity(), NumberContract.View {
-
-    private val tvResult: TextView = findViewById(R.id.tvResult)
-    private val btnSum: Button = findViewById(R.id.btnSum)
-    private val edtNumber1: EditText = findViewById(R.id.edtNumber1)
-    private val edtNumber2: EditText = findViewById(R.id.edtNumber2)
 
     private lateinit var presenter: NumberContract.Presenter
 
@@ -33,7 +30,10 @@ class NumberActivity : AppCompatActivity(), NumberContract.View {
     }
 
     override fun showResult(result: String) {
-        tvResult.text = result
+        tvResult.run {
+              visibility = View.VISIBLE
+             text = result
+        }
     }
 
     override fun showError(message: String) {
