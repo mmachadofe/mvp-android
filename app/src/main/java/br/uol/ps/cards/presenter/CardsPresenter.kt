@@ -22,10 +22,9 @@ class CardsPresenter(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread(), true)
             .doOnNext {
-                //sucesso
                 view?.showListCards(it.cards)
             }.doOnError {
-                view?.showError()
+                view?.showError("Não foi possível completar sua requisição no momento, tenta novamente mais tarde.")
             }.doOnComplete {
                 view?.stopLoading()
             }.subscribe()

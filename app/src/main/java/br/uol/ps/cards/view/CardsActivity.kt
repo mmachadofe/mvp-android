@@ -1,7 +1,8 @@
 package br.uol.ps.cards.view
 
 import android.os.Bundle
-import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.uol.ps.cards.R
@@ -12,16 +13,17 @@ import br.uol.ps.cards.presenter.CardsPresenter
 import br.uol.ps.cards.repository.CardRepository
 import br.uol.ps.core.networkMiddleware.RetrofitConfiguration
 import kotlinx.android.synthetic.main.activity_cards.*
+import kotlinx.android.synthetic.main.progress_dialog.*
 
 class CardsActivity : AppCompatActivity(), CardsContract.View {
 
-    //todo aula com o julio sobre injeção de dependncia
+    //todo aula com o julio sobre injeção de dependência
     private val presenter = CardsPresenter(this, CardRepository(RetrofitConfiguration().getInstance()))
+    private var mAlertDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cards)
-
         presenter.getCards()
     }
 
@@ -38,22 +40,32 @@ class CardsActivity : AppCompatActivity(), CardsContract.View {
         //Paulo Afonso
     }
 
-    override fun showError() {
-        //TODO("Not yet implemented"
-        //Mostar uma Dialog  com a mensagem
+    override fun showError(message: String) {
+        // todo Mostar uma Dialog com a mensagem
         // TITLE: Falha na requisição
         // MESSAG: Não foi possível completar sua requisição no momento, tenta novamente mais tarde.
         // BOTÃO: Botão OK
+
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun buildDialog(): AlertDialog {
+        val dialogView = layoutInflater.inflate(R.layout.progress_dialog, null)
+        tvTitleProgress?.text = "Carregando..."
+        tvMessageProgress?.text= "Por favor, aguarde."
+
+        return AlertDialog.Builder(this)
+                .setView(dialogView)
+                .create()
     }
 
     override fun showLoading() {
-        //TODO("Not yet implemented")
-        //Utilizar ProgressDialog - iniciar
+        mAlertDialog = buildDialog()
+        mAlertDialog?.show()
     }
 
     override fun stopLoading() {
-        //TODO("Not yet implemented")
-        //Utilizar ProgressDialog - parar
+        mAlertDialog?.dismiss()
     }
 
     override fun onDestroy() {
