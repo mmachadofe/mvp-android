@@ -3,6 +3,7 @@ package br.uol.ps.cards.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -16,7 +17,6 @@ import br.uol.ps.cards.presenter.CardsPresenter
 import br.uol.ps.cards.repository.CardRepository
 import br.uol.ps.core.networkMiddleware.RetrofitConfiguration
 import kotlinx.android.synthetic.main.activity_cards.*
-import kotlinx.android.synthetic.main.progress_dialog.*
 
 class CardsActivity : AppCompatActivity(), CardsContract.View {
 
@@ -60,11 +60,14 @@ class CardsActivity : AppCompatActivity(), CardsContract.View {
 
     private fun buildDialog(): AlertDialog {
         val dialogView = layoutInflater.inflate(R.layout.progress_dialog, null)
-        tvTitleProgress?.text = "Carregando..."
-        tvMessageProgress?.text= "Por favor, aguarde."
+        val titleProgress = dialogView.findViewById<TextView>(R.id.tvTitleProgress)
+        val messageProgress = dialogView.findViewById<TextView>(R.id.tvMessageProgress)
+        titleProgress.text = getString(R.string.progress_title)
+        messageProgress.text= getString(R.string.progress_message)
 
         return AlertDialog.Builder(this)
                 .setView(dialogView)
+                .setCancelable(false)
                 .create()
     }
 
