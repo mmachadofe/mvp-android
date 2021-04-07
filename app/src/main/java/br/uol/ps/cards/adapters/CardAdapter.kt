@@ -21,6 +21,8 @@ class CardAdapter(private val cards: List<Card>) : RecyclerView.Adapter<CardAdap
 
     override fun getItemCount() = cards.size
 
+    private var listener : ((Card) -> Unit)? = null
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.view.run {
             try{
@@ -37,11 +39,18 @@ class CardAdapter(private val cards: List<Card>) : RecyclerView.Adapter<CardAdap
 
                 cardView.setCardBackgroundColor(Color.parseColor(card.layoutAttrs.bgColor))
 
+                setOnClickListener {
+                    listener?.invoke(card)
+                }
             }
             catch (e: Exception){
 
             }
         }
+    }
+
+    fun setListener(listener: ((Card) -> Unit)?){
+        this.listener = listener
     }
 
     class ViewHolder(var view: View) : RecyclerView.ViewHolder(view)

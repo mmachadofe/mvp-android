@@ -1,10 +1,13 @@
 package br.uol.ps.cards.view
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import br.uol.ps.cards.MainActivity
 import br.uol.ps.cards.R
 import br.uol.ps.cards.adapters.CardAdapter
 import br.uol.ps.cards.contracts.CardsContract
@@ -31,13 +34,19 @@ class CardsActivity : AppCompatActivity(), CardsContract.View {
         rvCards.run {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = CardAdapter(cards)
+            val cardAdapter = CardAdapter(cards)
+            cardAdapter.setListener {
+                presenter.doOpenCardDetail(it)
+            }
+
+            adapter = cardAdapter
         }
     }
 
-    override fun openCardDetail() {
-        //TODO("Not yet implemented")
-        //Paulo Afonso
+    override fun openCardDetail(card: Card) {
+        startActivity(
+            DetailActivity.newIntent(applicationContext, card)
+        )
     }
 
     override fun showError(message: String) {

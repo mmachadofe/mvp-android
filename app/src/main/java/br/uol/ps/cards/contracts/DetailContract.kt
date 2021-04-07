@@ -2,18 +2,17 @@ package br.uol.ps.cards.contracts
 
 import br.uol.ps.cards.models.Card
 
-interface CardsContract {
+interface DetailContract {
     interface View {
-        fun showListCards(cards: List<Card>)
-        fun openCardDetail(card: Card)
+        fun setLimit(limit: String)
+        fun setBlockStatus(status: Boolean)
         fun showError(message: String)
         fun showLoading()
         fun stopLoading()
     }
 
     interface Presenter {
-        fun getCards()
-        fun doOpenCardDetail(card: Card)
+        fun getDetailCard(id: Int)
         fun dispose()
     }
 }

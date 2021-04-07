@@ -12,5 +12,5 @@ interface CardsApi {
     fun getCards(): Observable<CardsResponseDto>
 
     @GET("/cards/{walletId}")
-    fun getCardDetail(@Path("walletId") walletId: String): Observable<CardDetailDto>
+    fun getCardDetail(@Path("walletId") walletId: Int): Observable<CardDetailDto>
 }
