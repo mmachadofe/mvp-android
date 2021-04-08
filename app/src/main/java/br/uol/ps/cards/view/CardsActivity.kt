@@ -1,6 +1,9 @@
 package br.uol.ps.cards.view
 
 import android.os.Bundle
+import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -39,6 +42,12 @@ class CardsActivity : AppCompatActivity(), CardsContract.View {
             adapter = cardAdapter
         }
     }
+
+    override fun setListCardsVisible() {
+        rvCards.visibility = VISIBLE
+        container_cards_empty.visibility = GONE
+    }
+
 
     override fun openCardDetail(card: Card) {
         startActivity(

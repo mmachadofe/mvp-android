@@ -22,6 +22,7 @@ class CardsPresenter(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread(), true)
             .doOnNext {
+                view?.setListCardsVisible()
                 view?.showListCards(it.cards)
             }.doOnError {
                 view?.showError()

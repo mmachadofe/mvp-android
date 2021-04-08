@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Cards</string>
+    <string name="app_name">Cartões</string>
     <string name="situacao">Situação:</string>
     <string name="saldo_limite">Saldo/Limite:</string>
     <string name="bloquear_cartao">Bloquear Cartão</string>
@@ -8,4 +8,6 @@
     <string name="error_generic_title">Não foi possível concluir</string>
     <string name="error_generic_message">Estamos trabalhando para resolver. Tente novamente em alguns instantes.</string>
     <string name="error_understood">Entendi</string>
+    <string name="cards_empty_title">Você não possui nenhum cartão</string>
+    <string name="cards_empty_message">Conheça os Cartões Internacionais do PagSeguro.</string>
 </resources>

@@ -5,6 +5,7 @@ import br.uol.ps.cards.models.Card
 interface CardsContract {
     interface View {
         fun showListCards(cards: List<Card>)
+        fun setListCardsVisible()
         fun openCardDetail(card: Card)
         fun showError()
         fun showLoading()
