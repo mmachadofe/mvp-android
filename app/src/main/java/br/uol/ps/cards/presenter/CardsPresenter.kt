@@ -24,7 +24,7 @@ class CardsPresenter(
             .doOnNext {
                 view?.showListCards(it.cards)
             }.doOnError {
-                view?.showError("Não foi possível completar sua requisição no momento, tenta novamente mais tarde.")
+                view?.showError()
             }.doOnComplete {
                 view?.stopLoading()
             }.subscribe()

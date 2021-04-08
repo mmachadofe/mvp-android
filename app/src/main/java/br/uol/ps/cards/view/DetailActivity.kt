@@ -5,6 +5,8 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
+import androidx.appcompat.app.AlertDialog
 import br.uol.ps.cards.R
 import br.uol.ps.cards.contracts.DetailContract
 import br.uol.ps.cards.models.Card
@@ -20,6 +22,8 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
 
     //todo aula com o julio sobre injeção de dependência
     private val presenter = DetailPresenter(this, CardRepository(RetrofitConfiguration().getInstance()))
+    private var mAlertDialog: AlertDialog? = null
+    private var mErrorDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,16 +56,39 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
         swtBlockCard.isChecked = status
     }
 
-    override fun showError(message: String) {
-        //TODO("Not yet implemented")
+    override fun showError() {
+        val errorDialogView = layoutInflater.inflate(R.layout.error_dialog, null)
+        val btn = errorDialogView.findViewById<Button>(R.id.feedbackButton)
+
+        btn.setOnClickListener(){
+            this.stopErrorDialog()
+        }
+
+        mErrorDialog = AlertDialog.Builder(this)
+                .setView(errorDialogView)
+                .setCancelable(false)
+                .create()
+
+        mErrorDialog?.show()
+    }
+
+    private fun stopErrorDialog() {
+        mErrorDialog?.dismiss()
     }
 
     override fun showLoading() {
-        //TODO("Not yet implemented")
+        val dialogView = layoutInflater.inflate(R.layout.progress_dialog, null)
+
+        mAlertDialog = AlertDialog.Builder(this)
+                .setView(dialogView)
+                .setCancelable(false)
+                .create()
+
+        mAlertDialog?.show()
     }
 
     override fun stopLoading() {
-        //TODO("Not yet implemented")
+        mAlertDialog?.dismiss()
     }
 
     companion object {

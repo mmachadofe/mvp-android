@@ -1,14 +1,10 @@
 package br.uol.ps.cards.view
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import br.uol.ps.cards.MainActivity
 import br.uol.ps.cards.R
 import br.uol.ps.cards.adapters.CardAdapter
 import br.uol.ps.cards.contracts.CardsContract
@@ -23,6 +19,7 @@ class CardsActivity : AppCompatActivity(), CardsContract.View {
     //todo aula com o julio sobre injeção de dependência
     private val presenter = CardsPresenter(this, CardRepository(RetrofitConfiguration().getInstance()))
     private var mAlertDialog: AlertDialog? = null
+    private var mErrorDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,30 +46,34 @@ class CardsActivity : AppCompatActivity(), CardsContract.View {
         )
     }
 
-    override fun showError(message: String) {
-        // todo Mostar uma Dialog com a mensagem
-        // TITLE: Falha na requisição
-        // MESSAG: Não foi possível completar sua requisição no momento, tenta novamente mais tarde.
-        // BOTÃO: Botão OK
+    override fun showError() {
+        val errorDialogView = layoutInflater.inflate(R.layout.error_dialog, null)
+        val btn = errorDialogView.findViewById<Button>(R.id.feedbackButton)
 
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        btn.setOnClickListener(){
+            this.stopErrorDialog()
+        }
+
+        mErrorDialog = AlertDialog.Builder(this)
+            .setView(errorDialogView)
+            .setCancelable(false)
+            .create()
+
+        mErrorDialog?.show()
     }
 
-    private fun buildDialog(): AlertDialog {
-        val dialogView = layoutInflater.inflate(R.layout.progress_dialog, null)
-        val titleProgress = dialogView.findViewById<TextView>(R.id.tvTitleProgress)
-        val messageProgress = dialogView.findViewById<TextView>(R.id.tvMessageProgress)
-        titleProgress.text = getString(R.string.progress_title)
-        messageProgress.text= getString(R.string.progress_message)
-
-        return AlertDialog.Builder(this)
-                .setView(dialogView)
-                .setCancelable(false)
-                .create()
+    private fun stopErrorDialog() {
+        mErrorDialog?.dismiss()
     }
 
     override fun showLoading() {
-        mAlertDialog = buildDialog()
+        val dialogView = layoutInflater.inflate(R.layout.progress_dialog, null)
+
+        mAlertDialog = AlertDialog.Builder(this)
+                .setView(dialogView)
+                .setCancelable(false)
+                .create()
+
         mAlertDialog?.show()
     }
 

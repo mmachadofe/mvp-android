@@ -24,7 +24,7 @@ class DetailPresenter(
                 view?.setLimit(it.limit)
                 view?.setBlockStatus(it.blockStatus)
             }.doOnError {
-                view?.showError("Não foi possível completar sua requisição no momento, tenta novamente mais tarde.")
+                view?.showError()
             }.doOnComplete {
                 view?.stopLoading()
             }.subscribe()

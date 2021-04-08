@@ -6,7 +6,7 @@ interface DetailContract {
     interface View {
         fun setLimit(limit: String)
         fun setBlockStatus(status: Boolean)
-        fun showError(message: String)
+        fun showError()
         fun showLoading()
         fun stopLoading()
     }

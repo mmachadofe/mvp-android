@@ -5,4 +5,7 @@
     <string name="bloquear_cartao">Bloquear Cartão</string>
     <string name="progress_title">Carregando...</string>
     <string name="progress_message">Por favor, aguarde.</string>
+    <string name="error_generic_title">Não foi possível concluir</string>
+    <string name="error_generic_message">Estamos trabalhando para resolver. Tente novamente em alguns instantes.</string>
+    <string name="error_understood">Entendi</string>
 </resources>
