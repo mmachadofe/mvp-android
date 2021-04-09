@@ -16,11 +16,13 @@ import br.uol.ps.cards.presenter.CardsPresenter
 import br.uol.ps.cards.repository.CardRepository
 import br.uol.ps.core.networkMiddleware.RetrofitConfiguration
 import kotlinx.android.synthetic.main.activity_cards.*
+import org.koin.android.ext.android.inject
+import org.koin.androidx.scope.ScopeActivity
+import org.koin.core.parameter.parametersOf
 
-class CardsActivity : AppCompatActivity(), CardsContract.View {
+class CardsActivity : ScopeActivity(), CardsContract.View {
 
-    //todo aula com o julio sobre injeção de dependência
-    private val presenter = CardsPresenter(this, CardRepository(RetrofitConfiguration().getInstance()))
+    private val presenter: CardsContract.Presenter by scope.inject { parametersOf(this) }
     private var mAlertDialog: AlertDialog? = null
     private var mErrorDialog: AlertDialog? = null
 
@@ -59,7 +61,7 @@ class CardsActivity : AppCompatActivity(), CardsContract.View {
         val errorDialogView = layoutInflater.inflate(R.layout.error_dialog, null)
         val btn = errorDialogView.findViewById<Button>(R.id.feedbackButton)
 
-        btn.setOnClickListener(){
+        btn.setOnClickListener() {
             this.stopErrorDialog()
         }
 
@@ -79,9 +81,9 @@ class CardsActivity : AppCompatActivity(), CardsContract.View {
         val dialogView = layoutInflater.inflate(R.layout.progress_dialog, null)
 
         mAlertDialog = AlertDialog.Builder(this)
-                .setView(dialogView)
-                .setCancelable(false)
-                .create()
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
 
         mAlertDialog?.show()
     }

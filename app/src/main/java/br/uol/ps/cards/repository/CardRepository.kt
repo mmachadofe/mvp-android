@@ -1,13 +1,8 @@
 package br.uol.ps.cards.repository
 
-import retrofit2.Retrofit
-import retrofit2.create
-
 class CardRepository(
-    retrofit: Retrofit
+    private val api: CardsApi
 ) : CardsApi {
-
-    private val api = retrofit.create<CardsApi>()
 
     override fun getCards() = api.getCards()
 

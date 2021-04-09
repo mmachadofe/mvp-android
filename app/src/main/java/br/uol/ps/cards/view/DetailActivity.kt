@@ -17,11 +17,13 @@ import br.uol.ps.core.networkMiddleware.RetrofitConfiguration
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.row_card.view.*
+import org.koin.android.ext.android.inject
+import org.koin.androidx.scope.ScopeActivity
+import org.koin.androidx.scope.lifecycleScope
+import org.koin.core.parameter.parametersOf
 
-class DetailActivity : AppCompatActivity(), DetailContract.View {
-
-    //todo aula com o julio sobre injeção de dependência
-    private val presenter = DetailPresenter(this, CardRepository(RetrofitConfiguration().getInstance()))
+class DetailActivity : ScopeActivity(), DetailContract.View {
+    private val presenter: DetailContract.Presenter by scope.inject { parametersOf(this) }
     private var mAlertDialog: AlertDialog? = null
     private var mErrorDialog: AlertDialog? = null
 
@@ -29,7 +31,7 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        if(intent.hasExtra(CARD)){
+        if (intent.hasExtra(CARD)) {
             val card = intent.getParcelableExtra<Card>(CARD)
             card?.also {
                 tv_card.text = CARD_NUMBER.format(it.lastDigits)
@@ -60,14 +62,14 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
         val errorDialogView = layoutInflater.inflate(R.layout.error_dialog, null)
         val btn = errorDialogView.findViewById<Button>(R.id.feedbackButton)
 
-        btn.setOnClickListener(){
+        btn.setOnClickListener() {
             this.stopErrorDialog()
         }
 
         mErrorDialog = AlertDialog.Builder(this)
-                .setView(errorDialogView)
-                .setCancelable(false)
-                .create()
+            .setView(errorDialogView)
+            .setCancelable(false)
+            .create()
 
         mErrorDialog?.show()
     }
@@ -80,9 +82,9 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
         val dialogView = layoutInflater.inflate(R.layout.progress_dialog, null)
 
         mAlertDialog = AlertDialog.Builder(this)
-                .setView(dialogView)
-                .setCancelable(false)
-                .create()
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
 
         mAlertDialog?.show()
     }
@@ -96,8 +98,9 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
         const val CARD = "card"
         val CARD_NUMBER = "**** **** **** %s"
 
-        fun newIntent(context: Context, card: Card) = Intent(context, DetailActivity::class.java).apply {
-            putExtra(CARD, card)
-        }
+        fun newIntent(context: Context, card: Card) =
+            Intent(context, DetailActivity::class.java).apply {
+                putExtra(CARD, card)
+            }
     }
 }

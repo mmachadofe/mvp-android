@@ -8,7 +8,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class CardsPresenter(
-    var view: CardsContract.View?,
+    private var view: CardsContract.View?,
     private val cardRepository: CardRepository
 ) : CardsContract.Presenter {
 
