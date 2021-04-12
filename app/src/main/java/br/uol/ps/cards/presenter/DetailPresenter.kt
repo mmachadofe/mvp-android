@@ -20,14 +20,14 @@ class DetailPresenter(
             .doOnSubscribe { disposable.add(it) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread(), true)
-            .doOnNext {
+            .doOnTerminate {
+                view?.stopLoading()
+            }.subscribe({
                 view?.setLimit(it.limit)
                 view?.setBlockStatus(it.blockStatus)
-            }.doOnError {
+            }, {
                 view?.showError()
-            }.doOnComplete {
-                view?.stopLoading()
-            }.subscribe()
+            })
     }
 
     override fun dispose() {

@@ -30,6 +30,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -52,7 +55,11 @@ dependencies {
     implementation "org.koin:koin-androidx-scope:$koin_version"
     implementation("org.koin:koin-android:$koin_version")
 
-    testImplementation 'junit:junit:4.+'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    // https://mvnrepository.com/artifact/io.mockk/mockk
+    testImplementation group: 'io.mockk', name: 'mockk', version: '1.10.3-jdk8'
+    androidTestImplementation group: 'io.mockk', name: 'mockk', version: '1.10.3-jdk8'
 }

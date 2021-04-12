@@ -21,14 +21,14 @@ class CardsPresenter(
             .doOnSubscribe { disposable.add(it) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread(), true)
-            .doOnNext {
+            .doOnTerminate {
+                view?.stopLoading()
+            }.subscribe({
                 view?.setListCardsVisible()
                 view?.showListCards(it.cards)
-            }.doOnError {
+            }, {
                 view?.showError()
-            }.doOnComplete {
-                view?.stopLoading()
-            }.subscribe()
+            })
     }
 
     override fun doOpenCardDetail(card: Card) {
