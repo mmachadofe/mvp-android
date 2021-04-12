@@ -27,11 +27,12 @@ class CardsPresenterTest {
 
     private lateinit var presenter: CardsPresenter
     private lateinit var card: Card
+    private val id = "2"
 
     @Before
     fun setup() {
         card = Card(
-            1000,
+            id,
             "title",
             "description",
             "lastDigits",
@@ -84,7 +85,7 @@ class CardsPresenterTest {
 
     @Test
     fun `test card object`() {
-        Assert.assertEquals(1000, card.id)
+        Assert.assertEquals(id, card.id)
         Assert.assertEquals("title", card.title)
         Assert.assertEquals("description", card.description)
         Assert.assertEquals("lastDigits", card.lastDigits)

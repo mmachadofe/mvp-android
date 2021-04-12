@@ -13,7 +13,7 @@ class DetailPresenter(
 
     private val disposable = CompositeDisposable()
 
-    override fun getDetailCard(id: Int) {
+    override fun getDetailCard(id: String) {
         view?.showLoading()
         cardRepository
             .getCardDetail(id)

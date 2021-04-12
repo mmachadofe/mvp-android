@@ -6,5 +6,5 @@ class CardRepository(
 
     override fun getCards() = api.getCards()
 
-    override fun getCardDetail(walletId: Int) = api.getCardDetail(walletId)
+    override fun getCardDetail(walletId: String) = api.getCardDetail(walletId)
 }

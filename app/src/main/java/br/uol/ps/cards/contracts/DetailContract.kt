@@ -12,7 +12,7 @@ interface DetailContract {
     }
 
     interface Presenter {
-        fun getDetailCard(id: Int)
+        fun getDetailCard(id: String)
         fun dispose()
     }
 }

@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Card(
    @SerializedName("id")
-   val id: Int,
+   val id: String,
    val title: String,
    val description: String,
    val lastDigits: String,
